@@ -38,20 +38,24 @@ export const Login = () => {
           <img src={logo} alt="marca da empresa" />
         </div>
         <form onSubmit={e => handleSubmit(e)}>
-          <label htmlFor="user">
+          <label id="username">
             Usuário:
             <input
               required
+              data-testid="input-username"
+              aria-labelledby="username"
               type="text"
               name="username"
               value={person.username}
               onChange={e => handleUser(e.target)}
             />
           </label>
-          <label htmlFor="password">
+          <label id="password">
             Senha:
             <input
               required
+              data-testid="input-password"
+              aria-labelledby="password"
               type="password"
               name="password"
               value={person.password}
