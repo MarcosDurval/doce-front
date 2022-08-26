@@ -1,0 +1,46 @@
+@use "../color" as *;
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
+main {
+  background-color: $bg-login;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .image {
+    width: 20vh;
+    margin: auto;
+    padding-bottom: 1em;
+  }
+};
+
+label{
+  font-family: 'Lobster', cursive;
+}
+
+input {
+  display: block;
+  border-radius: 25px;
+  background-color: antiquewhite;
+  border-style: none;
+  height: 40px;
+}
+
+.btn-entrar{
+  margin: auto;
+  padding-top: 1em;
+  justify-content: center;
+  display: flex;
+  button {
+    color: #EE0000;
+    border-radius: 25px;
+    border-style: none;
+    padding: 2px 1em;
+    font-family: 'Lobster', cursive;
+  }
+}
+
+p {
+  padding-top: 5px;
+  color: #EE0000;
+}
