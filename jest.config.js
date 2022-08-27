@@ -49,6 +49,14 @@ module.exports = {
     // Handle TypeScript path aliases
     "^@/(.*)$": "<rootDir>/src/$1",
   },
+  coverageThreshold: {
+    global: {
+      branches: 80,
+      functions: 80,
+      lines: 80,
+      statements: -10,
+    },
+  },
 
   verbose: true,
   testTimeout: 30000,
