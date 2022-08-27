@@ -1,24 +1,28 @@
-on: ["push", "pull_request"]
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
-  jobs:
-    check pull:
-      runs-on: ubuntu-latest
+jobs:
+  build:
+    runs-on: ubuntu-latest
       
-      steps:
-        - name: check git repository
-          uses: actions/checkout@v3
+    steps:
+      - name: check git repository
+        uses: actions/checkout@v3
 
-        - name: install node
-          uses: actions/setup-node@v3
-          with: 
-            node-version: 16
+      - name: install node
+        uses: actions/setup-node@v3
+        with: 
+          node-version: 16
         
-        - name: install dependencies
-        - run: npm install
+      - name: install dependencies
+        run: npm install
 
-        - name: check eslint
-        - run: npm run lint
+      - name: check eslint
+        run: npm run lint
 
-        - name: check tests
-        - run: npm run test:unit:coverage
+      - name: check tests
+        run: npm run test:unit:coverage
 
