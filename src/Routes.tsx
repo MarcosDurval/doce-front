@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import { Login } from "@/pages/login/Login";
 
@@ -6,10 +6,10 @@ import { Login } from "@/pages/login/Login";
 
 export const AllRoutes = () => {
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
         <Route path="/" element={<Login />} />
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 };
