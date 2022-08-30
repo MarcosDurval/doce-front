@@ -2,10 +2,11 @@ import legacy from "@vitejs/plugin-legacy";
 import react from "@vitejs/plugin-react";
 import { fileURLToPath } from "url";
 import { defineConfig } from "vite";
+import EnvironmentPlugin from "vite-plugin-environment";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [legacy(), react()],
+  plugins: [legacy(), react(), EnvironmentPlugin("all")],
   resolve: {
     alias: {
       // for TypeScript path alias import like : @/x/y/z

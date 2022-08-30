@@ -3,7 +3,7 @@ import axios, { AxiosRequestConfig } from "axios";
 import { token } from "./auth";
 
 const api = axios.create({
-  baseURL: "http://localhost:8000",
+  baseURL: process.env.VITE_API_URL,
   timeout: 1000,
 });
 
