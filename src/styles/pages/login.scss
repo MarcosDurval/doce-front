@@ -21,7 +21,7 @@ label{
 input {
   display: block;
   border-radius: 25px;
-  background-color: antiquewhite;
+  background-color: $bg-input;
   border-style: none;
   height: 40px;
 }
@@ -32,7 +32,7 @@ input {
   justify-content: center;
   display: flex;
   button {
-    color: #EE0000;
+    color: $warning;
     border-radius: 25px;
     border-style: none;
     padding: 2px 1em;
@@ -42,5 +42,6 @@ input {
 
 p {
   padding-top: 5px;
-  color: #EE0000;
+  color: $warning;
+  text-align: center;
 }

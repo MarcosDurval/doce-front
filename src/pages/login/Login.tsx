@@ -1,5 +1,6 @@
 import "@/styles/pages/login.scss";
 
+import { AxiosError } from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -23,13 +24,17 @@ export const Login = () => {
         password: person.password,
       })
       .then(response => {
-        console.log(response);
-        if (response.data?.access) {
-          setToken(response.data.access);
+        const token = response.data?.access;
+        if (token) {
+          setToken(token);
           navigate("/products");
         }
       })
-      .catch(_e => setFalid(true));
+      .catch((error: AxiosError) => {
+        if (error.response?.status === 401) {
+          setFalid(true);
+        }
+      });
   };
   return (
     <main>
