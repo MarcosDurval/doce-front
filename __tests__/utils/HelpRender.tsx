@@ -10,6 +10,7 @@ const renderWithRouter = (component: React.ReactElement) => {
         {component}
       </Router>
     ),
+    history,
   };
 };
 
