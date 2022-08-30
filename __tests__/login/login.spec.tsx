@@ -1,7 +1,7 @@
 import { fireEvent, screen, waitFor } from "@testing-library/react";
 import mockAxios from "jest-mock-axios";
 
-import { Login } from "@/pages/login/Login";
+import Login from "@/pages/login/Login";
 
 import renderWithRouter from "../utils/HelpRender";
 
