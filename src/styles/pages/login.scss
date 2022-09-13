@@ -9,7 +9,7 @@
   align-items: center;
   .image {
     width: 20vh;
-    margin: auto;
+    margin: 10% auto;
     padding-bottom: 1em;
   }
   p {
@@ -27,12 +27,14 @@
     background-color: $bg-input;
     border-style: none;
     height: 40px;
+    padding: 0 10px;
+    margin-bottom: 0.5rem;
   }
 }
 
 #btn-login{
   margin: auto;
-  padding-top: 1em;
+  padding-top: 0.8rem;
   justify-content: center;
   display: flex;
   button {

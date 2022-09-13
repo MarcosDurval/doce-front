@@ -27,7 +27,7 @@ const Login = () => {
         const token = response.data?.access;
         if (token) {
           setToken(token);
-          navigate("/products");
+          navigate("/produtos");
         }
       })
       .catch((error: AxiosError) => {
