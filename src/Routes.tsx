@@ -1,14 +1,32 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Navigate,
+  Outlet,
+  Route,
+  Routes,
+} from "react-router-dom";
 
-import { Login } from "@/pages/login/Login";
+import Login from "@/pages/login/Login";
 
-// const isLogin = () => {};
+import ListProducts from "./pages/product/ListProducts";
+
+const PrivateRoute = () => {
+  const auth = localStorage.getItem("token");
+  return auth ? <Outlet /> : <Navigate to="/login" />;
+};
 
 export const AllRoutes = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/produtos" element={<ListProducts />} />
+          <Route path="/produtos/cadastro" />
+          <Route path="/produtos/edit/:id" />
+          <Route path="/produtos/:id" />
+        </Route>
+        <Route path="/" element={<Navigate to="/login" />} />
       </Routes>
     </Router>
   );

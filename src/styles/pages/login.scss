@@ -1,7 +1,7 @@
 @use "../color" as *;
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 
-main {
+#main-lg {
   background-color: $bg-login;
   height: 100vh;
   display: flex;
@@ -9,30 +9,36 @@ main {
   align-items: center;
   .image {
     width: 20vh;
-    margin: auto;
+    margin: 10% auto;
     padding-bottom: 1em;
+  }
+  p {
+    padding-top: 5px;
+    color: $warning;
+    text-align: center;
   }
 };
 
-label{
+.label-lg{
   font-family: 'Lobster', cursive;
+  input {
+    display: block;
+    border-radius: 25px;
+    background-color: $bg-input;
+    border-style: none;
+    height: 40px;
+    padding: 0 10px;
+    margin-bottom: 0.5rem;
+  }
 }
 
-input {
-  display: block;
-  border-radius: 25px;
-  background-color: antiquewhite;
-  border-style: none;
-  height: 40px;
-}
-
-.btn-entrar{
+#btn-login{
   margin: auto;
-  padding-top: 1em;
+  padding-top: 0.8rem;
   justify-content: center;
   display: flex;
   button {
-    color: #EE0000;
+    color: $warning;
     border-radius: 25px;
     border-style: none;
     padding: 2px 1em;
@@ -40,7 +46,3 @@ input {
   }
 }
 
-p {
-  padding-top: 5px;
-  color: #EE0000;
-}
