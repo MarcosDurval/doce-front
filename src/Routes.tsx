@@ -21,7 +21,10 @@ export const AllRoutes = () => {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route element={<PrivateRoute />}>
-          <Route path="/products" element={<ListProducts />} />
+          <Route path="/produtos" element={<ListProducts />} />
+          <Route path="/produtos/cadastro" />
+          <Route path="/produtos/edit/:id" />
+          <Route path="/produtos/:id" />
         </Route>
         <Route path="/" element={<Navigate to="/login" />} />
       </Routes>
