@@ -1,4 +1,4 @@
-import { fireEvent, screen, waitFor } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import mockAxios from "jest-mock-axios";
 
 import Login from "@/pages/login/Login";
@@ -11,19 +11,20 @@ describe("Login", () => {
   });
 
   it("should renders the inputs", async () => {
-    renderWithRouter(<Login />, { route: "/login" });
+    const { user } = renderWithRouter(<Login />, { route: "/login" });
 
     const username = screen.getByLabelText("Usuário:") as HTMLInputElement;
     const password = screen.getByLabelText("Senha:") as HTMLInputElement;
 
-    fireEvent.change(username, { target: { value: "name" } });
-    fireEvent.change(password, { target: { value: "password" } });
+    await user.type(username, "name");
+    await user.type(password, "password");
 
     expect(username?.value).toBe("name");
     expect(password?.value).toBe("password");
     expect(username).toHaveAttribute("required");
     expect(password).toHaveAttribute("required");
   });
+
   it("it should faill login action", async () => {
     const error = { response: { status: 401 } };
     mockAxios.post.mockRejectedValueOnce(error);
@@ -38,11 +39,10 @@ describe("Login", () => {
     user.type(password, "senha");
 
     user.click(button);
-    await waitFor(async () => {
-      const failLogin = await screen.findByText("Usuário ou senha inválidos");
-      expect(failLogin).toBeInTheDocument();
-    });
+    const failLogin = await screen.findByText("Usuário ou senha inválidos");
+    expect(failLogin).toBeInTheDocument();
   });
+
   it("it should be possible to log in", async () => {
     const response = { data: { access: "token" } };
     mockAxios.post.mockResolvedValueOnce(response);
@@ -57,6 +57,7 @@ describe("Login", () => {
     user.type(password, "password");
 
     user.click(button);
+
     await waitFor(async () => {
       expect(window.location.pathname).toBe("/produtos");
     });

@@ -3,10 +3,14 @@ import mockAxios from "jest-mock-axios";
 
 import ListProducts from "@/pages/product/ListProducts";
 
+import { mockProducts } from "../__mocks__/products";
 import renderWithRouter from "../utils/HelpRender";
 
 describe("Page Products", () => {
   it("should render input search", async () => {
+    const response = { data: { results: mockProducts } };
+    mockAxios.get.mockResolvedValueOnce(response);
+
     const { user } = renderWithRouter(<ListProducts />, { route: "/produtos" });
 
     const searchInput = (await screen.findByTestId(
@@ -18,20 +22,24 @@ describe("Page Products", () => {
     expect(searchInput).toBeInTheDocument();
     expect(searchInput.value).toBe("Batman");
   });
+
   it("should render link 'Novo'", async () => {
+    const response = { data: { results: mockProducts } };
+    mockAxios.get.mockResolvedValueOnce(response);
     renderWithRouter(<ListProducts />, { route: "/produtos" });
 
     const linkNew = await screen.findByText("Novo");
     expect(linkNew).toBeInTheDocument();
     expect(linkNew).toHaveAttribute("href", "/produtos/cadastro");
   });
+
   it("should search by text", async () => {
-    const response = { data: { results: [1, 2] } };
-    const response1 = { data: { results: [1] } };
+    const response = { data: { results: mockProducts } };
+    const response1 = { data: { results: [mockProducts[0]] } };
     mockAxios.get.mockResolvedValueOnce(response);
     const { user } = renderWithRouter(<ListProducts />, { route: "/produtos" });
 
-    const allProducts = await screen.findAllByText("olá mundo");
+    const allProducts = await screen.findAllByText(/^Produto/);
     expect(allProducts.length).toBe(2);
 
     mockAxios.get.mockReset();
@@ -44,7 +52,7 @@ describe("Page Products", () => {
     await user.type(searchInput, "Batman[Enter]");
 
     await waitFor(async () => {
-      const filtredProdutcts = await screen.findAllByText("olá mundo");
+      const filtredProdutcts = await screen.findAllByText(/^Produto/);
       expect(filtredProdutcts.length).toBe(1);
     });
   });
