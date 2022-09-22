@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 
-import { IProducts } from "@/interfaces/responseApi";
+import { IProducts } from "@/interface/responseApi";
 
 interface IProps {
   results: IProducts;
 }
+
 export const CardProduct = ({ results }: IProps) => {
   const convertPrice = (moeda: string) => {
     const floatMoeda = parseFloat(moeda);
