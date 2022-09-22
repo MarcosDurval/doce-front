@@ -4,35 +4,42 @@ import { useEffect, useState } from "react";
 
 import { CardProduct } from "@/components/CardProduct";
 import Header from "@/components/Header";
-import api from "@/services/api";
+import getApi from "@/helpApi/apiGet";
+import { IGet } from "@/interface/responseApi";
 
 const ListProducts = () => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<IGet | null>({} as IGet);
+  const [faill, setFail] = useState<boolean>(false);
   const [load, setLoad] = useState<boolean>(true);
-  const page = window.location.pathname;
+  const page = window.location.pathname.slice(1);
+
   useEffect(() => {
-    api
-      .get("api/v1/produtos/")
+    getApi(page)
       .then(response => {
-        setProducts(response.data.results);
-      })
-      .catch(error => {
-        console.log(error);
+        if (response) {
+          setProducts(response);
+        } else {
+          setFail(true);
+        }
       })
       .finally(() => setLoad(false));
-  }, []);
+  }, [page]);
 
   if (load) {
     return <h1>Carregando...</h1>;
+  }
+
+  if (faill) {
+    return <h1>Algo deu Errado :(</h1>;
   }
 
   return (
     <>
       <main className="main-pd">
         <Header page={page} setList={setProducts} />
-        {products.length > 0 ? (
+        {products && products.results.length > 0 ? (
           <div>
-            {products.map((product, index) => {
+            {products.results.map((product, index) => {
               return <CardProduct key={index} results={product} />;
             })}
           </div>
