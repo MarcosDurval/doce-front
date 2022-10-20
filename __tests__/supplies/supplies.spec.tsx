@@ -85,7 +85,8 @@ describe("Page Supplies", () => {
       expect(insumo).toBeInTheDocument();
     });
   });
-  it("should edit supplie", async () => {
+
+  it("should patch supplie", async () => {
     const response = { data: mockSupplies };
     const responseId = { data: mockSupplieID };
     const responseEdit = { data: mockSuppliesEdit };
