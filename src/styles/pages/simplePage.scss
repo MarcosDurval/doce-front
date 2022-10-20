@@ -1,0 +1,51 @@
+@use "../color" as *;
+
+#main {
+  background-color: $bg-pg;
+  padding: 15px 0;
+  margin-left: 220px;
+  transition: all 0.5s ease;
+  min-height: 100%;
+  #cardList{
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-around;
+  }
+}
+
+.card{
+  border-radius: 20px;
+  padding: 5px 10px;
+  width: 450px;
+  min-height: 200px;
+  margin: 0 15px 20px 15px; 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  background-color: $white;
+  .btn-card{
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 5px;
+    button{
+      background: none;
+	    color: inherit;
+	    border: none;
+	    padding: 0;
+	    font: inherit;
+	    outline: inherit;
+    }
+    svg{
+      width: 40px;
+      height: 25px;
+    }
+  }
+}
+
+
+@media (max-width: 600px) {
+  #main{
+    width: 100%;
+    margin-left: 0
+  }
+}
