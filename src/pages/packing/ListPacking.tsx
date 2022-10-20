@@ -1,15 +1,22 @@
 import { useEffect, useState } from "react";
 
 import CardPacking from "@/components/CardPacking";
+import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import getApi from "@/helpApi/apiGet";
+import SideBar from "@/components/Sidebar";
 import { IGet } from "@/interface/responseApi";
+import CreatePacking from "@/pages/packing/CreatedPacking";
+import EditPacking from "@/pages/packing/EditPacking";
+import getApi, { deleteApi } from "@/utils/methodApi/apiGet";
 
 const ListPacking = () => {
   const [packing, setPacking] = useState<IGet | null>({} as IGet);
+  const [isEditModal, setEditModal] = useState<boolean>(false);
+  const [isCreateModal, setModal] = useState<boolean>(false);
+  const [editId, setEdit] = useState<string>("");
   const [fail, setFail] = useState<boolean>(false);
   const [load, setLoad] = useState<boolean>(true);
-  const PAGE = window.location.pathname.slice(1);
+  const PAGE = "embalagem";
 
   useEffect(() => {
     getApi(PAGE)
@@ -23,6 +30,32 @@ const ListPacking = () => {
       .finally(() => setLoad(false));
   }, [PAGE]);
 
+  const destroyPacking = async (id: string) => {
+    await deleteApi(PAGE, id);
+    getApi(PAGE).then(response => {
+      if (response) {
+        setPacking(response);
+      } else {
+        setFail(true);
+      }
+    });
+  };
+
+  const setStatusEdit = (id: string) => {
+    setEditModal(true);
+    setEdit(id);
+  };
+
+  const reload = async () => {
+    getApi(PAGE).then(response => {
+      if (response) {
+        setPacking(response);
+      } else {
+        setFail(true);
+      }
+    });
+  };
+
   if (load) {
     return <h1>Carregando...</h1>;
   }
@@ -33,16 +66,29 @@ const ListPacking = () => {
 
   return (
     <>
-      <Header page={PAGE} setList={setPacking} />
-      <main>
+      <Header page={PAGE} setList={setPacking} setModal={setModal} />
+      <main id="main">
+        <SideBar />
         {packing && packing.results.length > 0 ? (
-          <div>
+          <section id="cardList">
             {packing.results.map((product, index) => {
-              return <CardPacking key={index} results={product} />;
+              return (
+                <CardPacking
+                  key={index}
+                  results={product}
+                  destroyPacking={destroyPacking}
+                  setStatusEdit={setStatusEdit}
+                />
+              );
             })}
-          </div>
+          </section>
         ) : null}
+        {isEditModal && (
+          <EditPacking ID={editId} setModal={setEditModal} reload={reload} />
+        )}
+        {isCreateModal && <CreatePacking setModal={setModal} reload={reload} />}
       </main>
+      <Footer get={packing as IGet} setList={setPacking} PAGE={PAGE} />
     </>
   );
 };
