@@ -1,7 +1,7 @@
 export interface IGet {
   count: number;
-  next: null | number;
-  previous: null | number;
+  next: null | string;
+  previous: null | string;
   results: [];
 }
 
@@ -10,16 +10,8 @@ export interface IProducts {
   nome: string;
   preco_de_venda: string;
   imagem: string | null;
-  embalagem: IEmbalagem;
+  embalagem: IPacking;
   receitas: IRecipes[];
-}
-
-export interface IEmbalagem {
-  id: string;
-  nome: string;
-  local_de_compra: string;
-  preco: string;
-  atualizado: Date;
 }
 
 export interface IRecipes {
@@ -29,4 +21,20 @@ export interface IRecipes {
   preparo: string;
   tipo: string;
   custo_receita: number;
+}
+export interface ISupplies {
+  id: string;
+  nome: string;
+  local_de_compra: string;
+  preco: string;
+  atualizado: string;
+  quantidade_embalagem: string;
+  unidade_medida: string;
+}
+export interface IPacking {
+  id: string;
+  nome: string;
+  local_de_compra: string;
+  preco: string;
+  atualizado: string;
 }
