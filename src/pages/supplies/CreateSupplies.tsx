@@ -2,7 +2,6 @@ import "@/styles/components/formsModal.scss";
 
 import React, { ChangeEvent, useState } from "react";
 
-import HeaderSimple from "@/components/HeaderSimple";
 import InputGeneric from "@/components/input/InputGeneric";
 import SelectGeneric from "@/components/input/SelectGeneric";
 import { ISupplies } from "@/interface/responseApi";
@@ -34,7 +33,7 @@ const Modal = ({ setModal, reload }: IProps) => {
   return (
     <div className="modal">
       <div className="container">
-        <HeaderSimple title="INSUMO" />
+        <h1>INSUMO</h1>
         <div>
           <form onSubmit={handleSubimit}>
             <InputGeneric

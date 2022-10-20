@@ -1,40 +1,61 @@
-import { KeyboardEvent, useState } from "react";
-import { Link } from "react-router-dom";
+import "@/styles/components/header.scss";
 
-import getApi from "@/helpApi/apiGet";
+import { useState } from "react";
+import { AiOutlineSearch } from "react-icons/ai";
+
 import { IGet } from "@/interface/responseApi";
+import getApi from "@/utils/methodApi/apiGet";
 
 interface IProps {
   page: string;
   setList: React.Dispatch<React.SetStateAction<IGet | null>>;
+  setModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Header = ({ page, setList }: IProps) => {
+const Header = ({ page, setList, setModal }: IProps) => {
   const [search, setSearch] = useState<string>("");
-  const searchApi = (e: KeyboardEvent<HTMLElement>) => {
-    if (e.key === "Enter") {
-      getApi(page, `?search=${search}`).then(response => {
-        setList(response);
-      });
-    }
+
+  const searchApi = () => {
+    getApi(page, `?search=${search}`).then(response => {
+      setList(response);
+    });
   };
+
+  const openSide = () => {
+    const open = document.querySelector(".wrapper");
+    const body = document.querySelector("body");
+    const side = document.querySelector(".sidebar");
+
+    body?.classList.add("scroll");
+    open?.classList.add("backside");
+    side?.classList.add("teste");
+  };
+
+  const handleModal = () => {
+    setModal(true);
+  };
+
   return (
-    <header>
-      <h1>Doce</h1>
-      <label htmlFor="search">
-        <input
-          id="search"
-          name="search"
-          type="text"
-          data-testid="search"
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-          onKeyDown={searchApi}
-        />
-      </label>
-      <Link id="btn-new" to={`${page}/cadastro`}>
-        Cadastro
-      </Link>
+    <header className="header">
+      <button className="openside" onClick={openSide}>
+        &#9776;
+      </button>
+      <div className="group-search">
+        <label htmlFor="search">
+          <input
+            id="search"
+            name="search"
+            type="text"
+            data-testid="search"
+            value={search}
+            placeholder="Buscar"
+            onChange={e => setSearch(e.target.value)}
+            onKeyDown={e => (e.key == "Enter" ? searchApi() : null)}
+          />
+        </label>
+        <AiOutlineSearch onClick={searchApi} />
+      </div>
+      <button onClick={handleModal}>Novo</button>
     </header>
   );
 };

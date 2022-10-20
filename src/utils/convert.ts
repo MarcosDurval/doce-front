@@ -1,4 +1,4 @@
-export const convertDate = (date: Date) => {
+export const convertDate = (date: string) => {
   const tempDate = new Date(`${date} 00:00`);
   return tempDate.toLocaleDateString("pt-BR", {
     day: "numeric",

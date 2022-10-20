@@ -1,6 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 
-import HeaderSimple from "@/components/HeaderSimple";
 import InputGeneric from "@/components/input/InputGeneric";
 import SelectGeneric from "@/components/input/SelectGeneric";
 import { ISupplies } from "@/interface/responseApi";
@@ -31,16 +30,18 @@ const ModalEdit = ({ setModal, id, reload, PAGE }: IProps) => {
       reload();
     });
   };
+
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     setinputSupplie(prev => ({ ...prev, [name]: value }));
   };
+
   return (
     <div className="modal">
       <div className="container">
-        <HeaderSimple title="INSUMO" />
+        <h1>INSUMO</h1>
         <div>
           <form onSubmit={handleSubimit}>
             <InputGeneric
