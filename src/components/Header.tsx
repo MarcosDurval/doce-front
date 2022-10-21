@@ -4,7 +4,7 @@ import { useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 
 import { IGet } from "@/interface/responseApi";
-import getApi from "@/utils/methodApi/apiGet";
+import getApi from "@/utils/methodApi/api";
 
 interface IProps {
   page: string;
@@ -28,7 +28,7 @@ const Header = ({ page, setList, setModal }: IProps) => {
 
     body?.classList.add("scroll");
     open?.classList.add("backside");
-    side?.classList.add("teste");
+    side?.classList.add("mobiside");
   };
 
   const handleModal = () => {
