@@ -2,9 +2,7 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 
 import InputGeneric from "@/components/input/InputGeneric";
 import { IPacking } from "@/interface/responseApi";
-import getApi, { patchApi } from "@/utils/methodApi/apiGet";
-
-import HeaderSimple from "../../components/HeaderSimple";
+import getApi, { patchApi } from "@/utils/methodApi/api";
 
 interface IProps {
   ID: string;
@@ -39,7 +37,7 @@ const EditPacking = ({ ID, setModal, reload }: IProps) => {
 
   return (
     <>
-      <HeaderSimple title="Embalagem" />
+      <h1>Embalagem</h1>
       <main>
         <form onSubmit={handleSubimit}>
           <InputGeneric

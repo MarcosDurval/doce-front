@@ -7,7 +7,7 @@ import SideBar from "@/components/Sidebar";
 import { IGet } from "@/interface/responseApi";
 import CreatePacking from "@/pages/packing/CreatedPacking";
 import EditPacking from "@/pages/packing/EditPacking";
-import getApi, { deleteApi } from "@/utils/methodApi/apiGet";
+import getApi, { deleteApi } from "@/utils/methodApi/api";
 
 const ListPacking = () => {
   const [packing, setPacking] = useState<IGet | null>({} as IGet);

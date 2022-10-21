@@ -1,9 +1,8 @@
 import React, { ChangeEvent, useState } from "react";
 
-import HeaderSimple from "@/components/HeaderSimple";
 import InputGeneric from "@/components/input/InputGeneric";
 import { IPacking } from "@/interface/responseApi";
-import { createdItem } from "@/utils/methodApi/apiGet";
+import { createdItem } from "@/utils/methodApi/api";
 
 interface IProps {
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -30,7 +29,7 @@ const CreatePacking = ({ setModal, reload }: IProps) => {
   return (
     <div className="modal">
       <div className="container">
-        <HeaderSimple title="Embalagem" />
+        <h1>Embalagem</h1>
         <main>
           <form onSubmit={handleSubimit}>
             <InputGeneric
