@@ -3,7 +3,7 @@ import "@/styles/components/footer.scss";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 
 import { IGet } from "@/interface/responseApi";
-import getApi from "@/utils/methodApi/apiGet";
+import getApi from "@/utils/methodApi/api";
 
 interface IProps {
   PAGE: string;
@@ -12,7 +12,7 @@ interface IProps {
 }
 
 const Footer = ({ PAGE, setList, get }: IProps) => {
-  const teste = (pageList: string) => {
+  const nextPreviousPage = (pageList: string) => {
     const selectPage = pageList.split("/").pop();
     getApi(PAGE, selectPage).then(response => {
       setList(response);
@@ -22,11 +22,11 @@ const Footer = ({ PAGE, setList, get }: IProps) => {
     <footer className="footerList">
       <AiOutlineArrowLeft
         style={{ color: get.previous ? "black" : "white" }}
-        onClick={() => teste(get.previous as string)}
+        onClick={() => nextPreviousPage(get.previous as string)}
       />
       <AiOutlineArrowRight
         style={{ color: get.next ? "black" : "white" }}
-        onClick={() => teste(get.next as string)}
+        onClick={() => nextPreviousPage(get.next as string)}
       />
     </footer>
   );
