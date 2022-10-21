@@ -3,7 +3,7 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import InputGeneric from "@/components/input/InputGeneric";
 import SelectGeneric from "@/components/input/SelectGeneric";
 import { ISupplies } from "@/interface/responseApi";
-import getApi, { patchApi } from "@/utils/methodApi/apiGet";
+import getApi, { patchApi } from "@/utils/methodApi/api";
 
 interface IProps {
   id: string;

@@ -5,7 +5,7 @@ import React, { ChangeEvent, useState } from "react";
 import InputGeneric from "@/components/input/InputGeneric";
 import SelectGeneric from "@/components/input/SelectGeneric";
 import { ISupplies } from "@/interface/responseApi";
-import { createdItem } from "@/utils/methodApi/apiGet";
+import { createdItem } from "@/utils/methodApi/api";
 
 interface IProps {
   setModal: React.Dispatch<React.SetStateAction<boolean>>;

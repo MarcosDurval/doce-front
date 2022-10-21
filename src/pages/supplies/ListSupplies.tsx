@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import SideBar from "@/components/Sidebar";
 import { IGet } from "@/interface/responseApi";
-import getApi, { deleteApi } from "@/utils/methodApi/apiGet";
+import getApi, { deleteApi } from "@/utils/methodApi/api";
 
 import CreateSupplies from "./CreateSupplies";
 import EditSupplies from "./EditSupplies";
