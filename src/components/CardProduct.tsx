@@ -1,19 +1,13 @@
 import { Link } from "react-router-dom";
 
 import { IProducts } from "@/interface/responseApi";
+import { convertPrice } from "@/utils/convert";
 
 interface IProps {
   results: IProducts;
 }
 
 export const CardProduct = ({ results }: IProps) => {
-  const convertPrice = (moeda: string) => {
-    const floatMoeda = parseFloat(moeda);
-    return floatMoeda.toLocaleString("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    });
-  };
   return (
     <Link to={`${results.id}`}>
       <div>

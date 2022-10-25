@@ -8,7 +8,9 @@ import {
 
 import Login from "@/pages/login/Login";
 
+import ListPacking from "./pages/packing/ListPacking";
 import ListProducts from "./pages/product/ListProducts";
+import ListSupplies from "./pages/supplies/ListSupplies";
 
 const PrivateRoute = () => {
   const auth = localStorage.getItem("token");
@@ -25,6 +27,11 @@ export const AllRoutes = () => {
           <Route path="/produtos/cadastro" />
           <Route path="/produtos/edit/:id" />
           <Route path="/produtos/:id" />
+          <Route path="/receitas" />
+          <Route path="/receitas/novo" />
+          <Route path="/receitas/:id" />
+          <Route path="/embalagem" element={<ListPacking />} />
+          <Route path="/insumos" element={<ListSupplies />} />
         </Route>
         <Route path="/" element={<Navigate to="/login" />} />
       </Routes>

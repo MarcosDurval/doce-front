@@ -1,0 +1,47 @@
+.header{
+  display: flex;
+  justify-content: space-evenly;
+  bottom: 0;
+  z-index: 2;
+  width: calc(100% - 220px);
+  margin-left: 220px;
+  padding: 5px;
+  background-color: #FF61C5;
+  border-bottom: 2px solid black;
+  .group-search{
+    margin: 0 30px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    input{
+      border-radius: 15px;
+      margin-right: 10px;
+      padding: 5px;
+      width: 30vw;
+    }
+    svg{
+      width: 30px;
+      height: 30px;
+    }
+  }
+}
+
+.openside{
+  display: none;
+}
+
+@media(max-width: 600px){
+  .header{
+    width: 100%;
+    margin-left: 0;
+  }
+  .openside{
+    display: inline;
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    outline: inherit;
+  }
+}
