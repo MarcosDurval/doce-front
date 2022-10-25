@@ -117,6 +117,14 @@
     display: flex;
     justify-content: flex-end;
     margin-right: 10px;
+    button{
+      background: none;
+      color: inherit;
+      border: none;
+      padding: 0;
+      font: inherit;
+      outline: inherit;
+    }
   }
   .scroll {
     overflow: hidden;

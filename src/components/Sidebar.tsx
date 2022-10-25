@@ -26,7 +26,9 @@ const SideBar = () => {
     <aside className="wrapper">
       <nav className="sidebar">
         <div className="btnClosedSide">
-          <AiOutlineClose onClick={closedSide} />
+          <button data-testid="btnClosedSide" onClick={closedSide}>
+            <AiOutlineClose />
+          </button>
         </div>
         <div className="profile">
           <img src={logo} alt="logo" />

@@ -9,6 +9,14 @@
   z-index: 2;
   width: calc(100% - 220px);
   margin-left: 220px;
+  button{
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    outline: inherit;
+  }
   svg{
     width: 40px;
     height: 25px;

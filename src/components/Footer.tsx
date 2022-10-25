@@ -19,15 +19,21 @@ const Footer = ({ PAGE, setList, get }: IProps) => {
     });
   };
   return (
-    <footer className="footerList">
-      <AiOutlineArrowLeft
-        style={{ color: get.previous ? "black" : "white" }}
+    <footer className="footerList" data-testid="footerList">
+      <button
+        disabled={!get.previous}
         onClick={() => nextPreviousPage(get.previous as string)}
-      />
-      <AiOutlineArrowRight
-        style={{ color: get.next ? "black" : "white" }}
+      >
+        <AiOutlineArrowLeft
+          style={{ color: get.previous ? "black" : "white" }}
+        />
+      </button>
+      <button
+        disabled={!get.next}
         onClick={() => nextPreviousPage(get.next as string)}
-      />
+      >
+        <AiOutlineArrowRight style={{ color: get.next ? "black" : "white" }} />
+      </button>
     </footer>
   );
 };

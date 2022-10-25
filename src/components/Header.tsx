@@ -37,7 +37,7 @@ const Header = ({ page, setList, setModal }: IProps) => {
 
   return (
     <header className="header">
-      <button className="openside" onClick={openSide}>
+      <button className="openside" data-testid="openside" onClick={openSide}>
         &#9776;
       </button>
       <div className="group-search">
