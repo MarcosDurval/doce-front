@@ -114,8 +114,8 @@ export const mockSuppliesEdit = {
 };
 export const mockSuppliesRemove = {
   count: 69,
-  next: "http://localhost:8000/api/v1/insumos/?page=2",
-  previous: null,
+  next: null,
+  previous: "http://localhost:8000/api/v1/insumos/?page=1",
   results: [
     {
       id: 2,

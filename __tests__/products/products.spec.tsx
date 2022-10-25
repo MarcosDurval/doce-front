@@ -23,15 +23,15 @@ describe("Page Products", () => {
     expect(searchInput.value).toBe("Batman");
   });
 
-  it("should render link 'Cadastro'", async () => {
-    const response = { data: { results: mockProducts } };
-    mockAxios.get.mockResolvedValueOnce(response);
-    renderWithRouter(<ListProducts />, { route: "/produtos" });
+  // it("should render link 'Cadastro'", async () => {
+  //   const response = { data: { results: mockProducts } };
+  //   mockAxios.get.mockResolvedValueOnce(response);
+  //   renderWithRouter(<ListProducts />, { route: "/produtos" });
 
-    const linkNew = await screen.findByText("Cadastro");
-    expect(linkNew).toBeInTheDocument();
-    expect(linkNew).toHaveAttribute("href", "/produtos/cadastro");
-  });
+  //   const linkNew = await screen.findByText("Cadastro");
+  //   expect(linkNew).toBeInTheDocument();
+  //   expect(linkNew).toHaveAttribute("href", "/produtos/cadastro");
+  // });
 
   it("should search by text", async () => {
     const response = { data: { results: mockProducts } };

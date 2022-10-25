@@ -21,7 +21,7 @@ describe("Page Supplies", () => {
     expect(allSupplies).toHaveLength(9);
   });
 
-  it("should render fail", async () => {
+  it("should render msg fail", async () => {
     const response = { data: false };
     mockAxios.get.mockResolvedValueOnce(response);
     renderWithRouter(<ListSupplies />, { route: "/insumos" });
@@ -62,94 +62,131 @@ describe("Page Supplies", () => {
     });
   });
 
-  it("should edit supplie", async () => {
-    const response = { data: mockSupplies };
-    const responseId = { data: mockSupplieID };
-    mockAxios.get.mockResolvedValueOnce(response);
-    const { user } = renderWithRouter(<ListSupplies />, { route: "/insumos" });
-    const allSupplies = await screen.findAllByTestId("card-supplie");
-    const btns = allSupplies[0].querySelectorAll("button");
-
-    mockAxios.get.mockReset();
-    mockAxios.get.mockResolvedValueOnce(responseId);
-
-    await user.click(btns[0]);
-
-    await waitFor(async () => {
-      const header = await screen.findByRole("heading", {
-        level: 1,
-        name: "INSUMO",
+  describe("Modal", () => {
+    it("should cancel create supplie", async () => {
+      const response = { data: mockSuppliesRemove };
+      mockAxios.get.mockResolvedValueOnce(response);
+      const { user } = renderWithRouter(<ListSupplies />, {
+        route: "/insumos",
       });
-      const insumo = await screen.findByLabelText("Insumo:");
-      expect(header).toBeInTheDocument();
-      expect(insumo).toBeInTheDocument();
+      const btnNew = await screen.findByRole("button", { name: "Novo" });
+
+      await user.click(btnNew);
+
+      const btnCancel = await screen.findByRole("button", {
+        name: "Cancelar",
+      });
+
+      await user.click(btnCancel);
+      await waitFor(async () => {
+        const header = screen.queryByRole("heading", {
+          level: 1,
+          name: "INSUMO",
+        });
+        const insumo = screen.queryByLabelText("Insumo:");
+        expect(header).not.toBeInTheDocument();
+        expect(insumo).not.toBeInTheDocument();
+      });
     });
-  });
 
-  it("should patch supplie", async () => {
-    const response = { data: mockSupplies };
-    const responseId = { data: mockSupplieID };
-    const responseEdit = { data: mockSuppliesEdit };
-    mockAxios.get.mockResolvedValueOnce(response);
-    const { user } = renderWithRouter(<ListSupplies />, { route: "/insumos" });
-    const allSupplies = await screen.findAllByTestId("card-supplie");
-    const btns = allSupplies[0].querySelectorAll("button");
+    it("should cancel edit supplie", async () => {
+      const response = { data: mockSupplies };
+      mockAxios.get.mockResolvedValueOnce(response);
+      const { user } = renderWithRouter(<ListSupplies />, {
+        route: "/insumos",
+      });
+      const allSupplies = await screen.findAllByTestId("card-supplie");
+      const btns = allSupplies[0].querySelectorAll("button");
 
-    mockAxios.get.mockReset();
-    mockAxios.get.mockResolvedValueOnce(responseId);
+      await user.click(btns[0]);
 
-    await user.click(btns[0]);
-    mockAxios.patch.mockResolvedValue([]);
-    mockAxios.get.mockReset();
-    mockAxios.get.mockResolvedValueOnce(responseEdit);
+      const btnCancel = await screen.findByRole("button", {
+        name: "Cancelar",
+      });
 
-    await waitFor(async () => {
+      await user.click(btnCancel);
+
+      await waitFor(async () => {
+        const header = screen.queryByRole("heading", {
+          level: 1,
+          name: "INSUMO",
+        });
+        const insumo = screen.queryByLabelText("Insumo:");
+        expect(header).not.toBeInTheDocument();
+        expect(insumo).not.toBeInTheDocument();
+      });
+    });
+
+    it("should create supplie", async () => {
+      const response = { data: mockSuppliesRemove };
+      const response1 = { data: mockSupplies };
+      mockAxios.post.mockResolvedValue([]);
+      mockAxios.get.mockResolvedValueOnce(response);
+      const { user } = renderWithRouter(<ListSupplies />, {
+        route: "/insumos",
+      });
+      const btnNew = await screen.findByRole("button", { name: "Novo" });
+
+      await user.click(btnNew);
+
       const supplie = await screen.findByLabelText("Insumo:");
-      const button = await screen.findByRole("button", {
-        name: "Atualizar Insumo",
+      const local = await screen.findByLabelText("Local de compra:");
+      const price = await screen.findByLabelText("Preço:");
+      const uni = await screen.findByLabelText("Unidade de medida:");
+      const date = await screen.findByLabelText("Data:");
+      const quantity = await screen.findByLabelText("Quantidade da embalagem:");
+      const btnCreate = await screen.findByRole("button", {
+        name: "Cadastrar",
       });
-      user.type(supplie, "Abacaxi");
-      user.click(button);
+
+      mockAxios.get.mockReset();
+      mockAxios.get.mockResolvedValueOnce(response1);
+
+      await user.type(supplie, "abacaxi");
+      await user.type(local, "atacadao");
+      await user.type(price, "3.75");
+      await user.type(date, "2020-04-01");
+      await user.type(quantity, "1000");
+      await user.type(uni, "Gramas");
+
+      await user.click(btnCreate);
+
+      const allSupplies = await screen.findAllByTestId("card-supplie");
+      expect(allSupplies).toHaveLength(9);
     });
 
-    await waitFor(async () => {
-      const supplie = await screen.findByText(/Abacaxi$/);
-      expect(supplie).toBeInTheDocument();
+    it("should patch supplie", async () => {
+      const response = { data: mockSupplies };
+      const responseId = { data: mockSupplieID };
+      const responseEdit = { data: mockSuppliesEdit };
+      mockAxios.get.mockResolvedValueOnce(response);
+      const { user } = renderWithRouter(<ListSupplies />, {
+        route: "/insumos",
+      });
+      const allSupplies = await screen.findAllByTestId("card-supplie");
+      const btns = allSupplies[0].querySelectorAll("button");
+
+      mockAxios.get.mockReset();
+      mockAxios.get.mockResolvedValueOnce(responseId);
+
+      await user.click(btns[0]);
+      mockAxios.patch.mockResolvedValue([]);
+      mockAxios.get.mockReset();
+      mockAxios.get.mockResolvedValueOnce(responseEdit);
+
+      await waitFor(async () => {
+        const supplie = await screen.findByLabelText("Insumo:");
+        const button = await screen.findByRole("button", {
+          name: "Atualizar Insumo",
+        });
+        user.type(supplie, "Abacaxi");
+        user.click(button);
+      });
+
+      await waitFor(async () => {
+        const supplie = await screen.findByText(/Abacaxi$/);
+        expect(supplie).toBeInTheDocument();
+      });
     });
-  });
-  it("should create supplie", async () => {
-    const response = { data: mockSuppliesRemove };
-    const response1 = { data: mockSupplies };
-    mockAxios.post.mockResolvedValue([]);
-    mockAxios.get.mockResolvedValueOnce(response);
-    const { user } = renderWithRouter(<ListSupplies />, { route: "/insumos" });
-    const btnNew = await screen.findByRole("button", { name: "Novo" });
-
-    await user.click(btnNew);
-
-    const supplie = await screen.findByLabelText("Insumo:");
-    const local = await screen.findByLabelText("Local de compra:");
-    const price = await screen.findByLabelText("Preço:");
-    const uni = await screen.findByLabelText("Unidade de medida:");
-    const date = await screen.findByLabelText("Data:");
-    const quantity = await screen.findByLabelText("Quantidade da embalagem:");
-    const btnCreate = await screen.findByRole("button", {
-      name: "Cadastrar",
-    });
-
-    mockAxios.get.mockReset();
-    mockAxios.get.mockResolvedValueOnce(response1);
-
-    await user.type(supplie, "abacaxi");
-    await user.type(local, "atacadao");
-    await user.type(price, "3.75");
-    await user.type(date, "2020-04-01");
-    await user.type(quantity, "1000");
-    await user.type(uni, "Gramas");
-
-    await user.click(btnCreate);
-
-    const allSupplies = await screen.findAllByTestId("card-supplie");
-    expect(allSupplies).toHaveLength(9);
   });
 });
